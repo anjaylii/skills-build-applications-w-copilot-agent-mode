@@ -1,14 +1,14 @@
 import express from 'express';
 import mongoose from 'mongoose';
-import usersRouter from './routes/users';
-import teamsRouter from './routes/teams';
-import activitiesRouter from './routes/activities';
-import leaderboardRouter from './routes/leaderboard';
-import workoutsRouter from './routes/workouts';
+import usersRouter from './routes/users.ts';
+import teamsRouter from './routes/teams.ts';
+import activitiesRouter from './routes/activities.ts';
+import leaderboardRouter from './routes/leaderboard.ts';
+import workoutsRouter from './routes/workouts.ts';
 
 const app = express();
 const port = Number(process.env.PORT || 8000);
-const mongoUri = process.env.MONGODB_URI || 'mongodb://localhost:27017/octofit-tracker';
+const mongoUri = process.env.MONGODB_URI || 'mongodb://localhost:27017/octofit_db';
 
 app.use(express.json());
 

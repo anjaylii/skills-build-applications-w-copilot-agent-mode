@@ -1,24 +1,33 @@
-import { Router, Request, Response } from 'express';
+import express from 'express';
+import type { Request, Response } from 'express';
+import Team from '../models/team.ts';
 
-const router = Router();
+const router = express.Router();
 
-router.get('/', (req: Request, res: Response) => {
-  res.json({ message: 'List teams (placeholder)' });
+router.get('/', async (req: Request, res: Response) => {
+  const teams = await Team.find().populate('members').lean();
+  res.json(teams);
 });
 
-router.post('/', (req: Request, res: Response) => {
-  res.status(201).json({ message: 'Create team (placeholder)', data: req.body });
+router.post('/', async (req: Request, res: Response) => {
+  const created = await Team.create(req.body);
+  res.status(201).json(created);
 });
 
-router.get('/:id', (req: Request, res: Response) => {
-  res.json({ message: 'Get team (placeholder)', id: req.params.id });
+router.get('/:id', async (req: Request, res: Response) => {
+  const team = await Team.findById(req.params.id).populate('members').lean();
+  if (!team) return res.status(404).json({ message: 'Not found' });
+  res.json(team);
 });
 
-router.put('/:id', (req: Request, res: Response) => {
-  res.json({ message: 'Update team (placeholder)', id: req.params.id, data: req.body });
+router.put('/:id', async (req: Request, res: Response) => {
+  const updated = await Team.findByIdAndUpdate(req.params.id, req.body, { new: true }).lean();
+  if (!updated) return res.status(404).json({ message: 'Not found' });
+  res.json(updated);
 });
 
-router.delete('/:id', (req: Request, res: Response) => {
+router.delete('/:id', async (req: Request, res: Response) => {
+  await Team.findByIdAndDelete(req.params.id);
   res.status(204).send();
 });
 
