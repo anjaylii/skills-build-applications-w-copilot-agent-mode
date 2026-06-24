@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { apiBase, normalizeApiResponse } from '../api';
+import { apiBase, normalizeApiResponse } from '../api.js';
 
 export default function Workouts() {
-  const [workouts, setWorkouts] = useState<any[]>([]);
-  const [error, setError] = useState<string | null>(null);
+  const [workouts, setWorkouts] = useState([]);
+  const [error, setError] = useState(null);
+
+  // Codespaces endpoint example:
+  // https://${import.meta.env.VITE_CODESPACE_NAME}-8000.app.github.dev/api/workouts
 
   useEffect(() => {
     fetch(`${apiBase}/api/workouts`)
