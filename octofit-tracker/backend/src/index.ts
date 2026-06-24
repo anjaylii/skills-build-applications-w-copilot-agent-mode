@@ -1,5 +1,5 @@
 import express from 'express';
-import mongoose from 'mongoose';
+import { connectDatabase } from './config/database.ts';
 import usersRouter from './routes/users.ts';
 import teamsRouter from './routes/teams.ts';
 import activitiesRouter from './routes/activities.ts';
@@ -32,7 +32,7 @@ function getServerUrl(): string {
   return `http://localhost:${port}`;
 }
 
-mongoose.connect(mongoUri)
+connectDatabase(mongoUri)
   .then(() => {
     console.log('Connected to MongoDB');
     app.listen(port, () => {

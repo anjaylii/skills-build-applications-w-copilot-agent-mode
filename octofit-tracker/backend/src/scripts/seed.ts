@@ -3,7 +3,8 @@
  *
  * Seed the octofit_db database with test data
  */
-import mongoose from 'mongoose';
+import mongoose from '../config/database.ts';
+import { connectDatabase } from '../config/database.ts';
 import User from '../models/user.ts';
 import Team from '../models/team.ts';
 import Activity from '../models/activity.ts';
@@ -14,7 +15,7 @@ const MONGO = process.env.MONGODB_URI || 'mongodb://localhost:27017/octofit_db';
 
 async function seed() {
   console.log('Seed the octofit_db database with test data');
-  await mongoose.connect(MONGO);
+  await connectDatabase(MONGO);
 
   // Clear existing data
   await Promise.all([
