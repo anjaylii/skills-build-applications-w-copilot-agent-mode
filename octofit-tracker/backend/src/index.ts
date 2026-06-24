@@ -27,7 +27,7 @@ app.get('/health', (req, res) => {
 function getServerUrl(): string {
   const codespace = process.env.CODESPACE_NAME;
   if (codespace) {
-    return `https://${codespace}-8000.githubpreview.dev`;
+    return `https://${codespace}-8000.app.github.dev`;
   }
   return `http://localhost:${port}`;
 }
